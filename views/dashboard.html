@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
+    <!--<link rel="stylesheet" type="text/css" href="assets/css/select.css">-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/new_select.css">
+    <link rel="stylesheet" type="text/css" href="../assets/fonts/Product Sans/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/all.min.css">
+    <title>Maple</title>
+  </head>
+  <body>
+
+    <!--<div class="status">Offline <i class="fa fa-frown"></i></div>-->
+    <div class="offline">Offline <i class="fa fa-frown"></i></div>
+    <div class="maple-setup"></div>
+    <div class="maple-transactions">
+      <div class="maple-control-bar">
+        <a href="#"></a>
+        <a href="#" class="button"><i class="fas fa-cog"></i>&nbsp;&nbsp;Settings</a>
+      </div>
+      <div class="maple-transaction-holder">
+        <div class="maple-empty">
+            <img src="../assets/images/smile.png" />
+            <span class="maple-empty__words">
+                No payments have come in yet. Keep calm.
+            </span>
+        </div>
+      </div>
+    </div>
+    <div class="maple-settings"></div>
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script>
+    //This is for includes
+    $(".maple-setup").load('setup.html');
+    </script>
+    <script src="../assets/js/accounting.min.js"></script>
+    <script src="../assets/js/moment-with-locales.js"></script>
+    <script src="../assets/js/app_state.js"></script>
+    <script src="../assets/js/optimus.js"></script>
+
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+  </body>
+</html>

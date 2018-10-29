@@ -1,0 +1,44 @@
+    <div class="maple-header">
+        <div class="words">Quick Setup</div>
+
+        <i class="fa fa-power-off"></i>
+    </div>
+    <div class="walkthrough">
+        <div class="maple-pager-first-old">
+            <span class="message">Hi there, just a few steps to<br/>get you rolling.</span>
+            <span class="label">
+                Payment Processor
+            </span>
+            <div class="list" id="processor">
+                <span class="placeholder">Select your payment processor</span>
+                <div class="select">
+                    <select>
+                      <option selected>Select your payment processor</option>
+                      <option>PayStack</option>
+                      <option>Rave</option>
+                    </select>
+                  </div>
+            </div>
+        </div>
+
+        <div class="maple-pager-first">
+
+            <span class="message">Your <strong>Paystack</strong> secret API key is how <strong>Maple</strong> identifies you to <strong>Paystack</strong>. Prevents any of your data from going through our servers. Just from <strong>Paystack</strong> to you.</span>
+            <span class="label">Your <strong>Paystack</strong> secret API key</span>
+            <input type="text" class="text" id="key" placeholder="sk_xxxx_xxxxxxxxxxxxxxxxxxxxxxxx"/>
+            <a href="https://dashboard.paystack.com/#/settings/developer" id="open_dashboard" class="text_button">Get your secret key from your Paystack dashboard</a>
+        </div>
+
+        <div class="maple-pager-second">
+                <span class="message">In your Paystack dashboard set your webhook url to</span>
+                <span class="instruction">
+                    Public Key
+                </span>
+                <a class="text_button">Huh? Beht Why?</a>
+            </div>
+
+        <div class="button-holder">
+            <a class="button" style="float:left;display:none" id="back_btn" onclick="backScreens()"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back</a>
+            <a class="button" style="float:right" onclick="cycleScreens()" id="next_btn">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+        </div>
+    </div>

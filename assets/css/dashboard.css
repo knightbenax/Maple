@@ -1,0 +1,219 @@
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Bold-webfont.eot');
+    src: url('../fonts/Lato/Lato-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Lato/Lato-Bold-webfont.woff2') format('woff2'),
+         url('../fonts/Lato/Lato-Bold-webfont.woff') format('woff'),
+         url('../fonts/Lato/Lato-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Lato/Lato-Bold-webfont.svg#latobold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Regular-webfont.eot');
+    src: url('../fonts/Lato/Lato-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Lato/Lato-Regular-webfont.woff2') format('woff2'),
+         url('../fonts/Lato/Lato-Regular-webfont.woff') format('woff'),
+         url('../fonts/Lato/Lato-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Lato/Lato-Regular-webfont.svg#latoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 14px;
+    font-family: 'Product Sans', sans-serif;
+    /*background-color: rgb(235, 235, 235);*/
+    background-color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  display: none;
+ }
+
+a.button{
+  background: #35234B;
+  /*box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.7);*/
+  border-radius: 2px;
+  padding: 6px 16px 4px;
+  color: #fff;
+  font-weight: bold;
+}
+
+a.button i{
+  display: inline !important;
+}
+
+.maple-transaction{
+  display: flex;
+}
+
+.maple-transaction-first{
+  display: flex;
+  flex-direction: column;
+}
+
+.maple-transaction-second{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.maple-domain{
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  color: #848484;
+}
+
+.maple-currency{
+  font-weight: bold;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+
+.maple-customer{
+  font-size: 12px;
+  color: #818181;
+  margin-bottom: 20px;
+}
+
+.maple-tag {
+  display: inline-block;
+  border-radius: 2px;
+  height: 20px;
+  line-height: 18px;
+  text-transform: capitalize;
+  font-size: 12px;
+  width: auto;
+  color: #ffffff;
+  padding: 1px 8px 1px 6px;
+  position: relative;
+  align-self:flex-start;
+}
+
+.maple-tag:before {
+  border-bottom: 10px transparent solid;
+  border-left: 12px #cceef0 solid;
+  border-top: 10px transparent solid;
+  content: '';
+  height: 0;
+  right: -11px;
+  position: absolute;
+  top: 0;
+  width: 0;
+
+}
+
+.maple-tag:after {
+  background: white;
+  border-radius: 50%;
+  content: '';
+  height: 4px;
+  right: 0;
+  position: absolute;
+  width: 4px;
+  top: 8px;
+}
+
+.maple-tag.success{
+  background: #60A316;
+  border-radius: 2px;
+}
+
+.maple-tag.success::before{
+  border-left: 12px #60A316 solid;
+}
+
+.maple-tag.failure{
+  background: #D0021B;
+  border-radius: 2px;
+}
+
+.maple-tag.failure::before{
+  border-left: 12px #D0021B solid;
+}
+
+.maple-tag.reversed{
+  background: #D68A0D;
+  border-radius: 2px;
+}
+
+.maple-tag.reversed::before{
+  border-left: 12px #D68A0D solid;
+}
+
+.maple-date{
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+
+*{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+
+
+.maple-transaction{
+  padding: 12px;
+  border: 1px solid #ECECEC;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.maple-new-event{
+  margin: 0px -12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.maple-new-event-text{
+  margin: 0px 5px;
+  font-size: 12px;
+  color: #818181;
+}
+
+.maple-red-line{
+  height: 1px;
+  background: #D0021B;
+  flex-grow: 1;
+}
+
+.maple-transaction.new{
+  background: #FFFDE0;
+}
+
+.maple-transaction:last-of-type{
+  margin-bottom: 0px;
+}
+
+.maple-transaction-holder{
+  padding: 12px;
+  margin-top: 46px;
+  z-index: 1;
+}
+
+.maple-control-bar{
+      display: flex;
+      background: #ffffff;
+      z-index: 2;
+      position: fixed;
+      top: 0px;
+      width: 100%;
+      justify-content: space-between;
+      padding: 12px;
+      font-size: 14px;
+      align-items: center;
+}

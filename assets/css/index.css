@@ -1,0 +1,219 @@
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Bold-webfont.eot');
+    src: url('../fonts/Lato/Lato-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Lato/Lato-Bold-webfont.woff2') format('woff2'),
+         url('../fonts/Lato/Lato-Bold-webfont.woff') format('woff'),
+         url('../fonts/Lato/Lato-Bold-webfont.ttf') format('truetype'),
+         url('../fonts/Lato/Lato-Bold-webfont.svg#latobold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato/Lato-Regular-webfont.eot');
+    src: url('../fonts/Lato/Lato-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Lato/Lato-Regular-webfont.woff2') format('woff2'),
+         url('../fonts/Lato/Lato-Regular-webfont.woff') format('woff'),
+         url('../fonts/Lato/Lato-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/Lato/Lato-Regular-webfont.svg#latoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: Lato;
+    /*background-color: rgb(235, 235, 235);*/
+    background-color: #ffffff;
+}
+
+*{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+.label, .instruction{
+    display: block;
+    margin-bottom: 2px;
+}
+
+#processor .placeholder, .placeholder_x{
+    visibility: hidden;
+}
+
+.instruction{
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+
+.message{
+    display: block;
+    text-align: left;
+    line-height: 1.5;
+    margin-bottom: 35px;
+}
+
+.text_button{
+    font-size: 13px;
+    color: #228AE6;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button{
+    background-color: #228AE6;
+    display: inline-block;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 3px;
+    text-decoration: none;
+    border: 1px solid;
+    border-bottom-width: 0.2625rem;
+    border-color: rgba(0,0,0,.2);
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.text{
+    border-radius: 3px;
+    padding: 6px 8px;
+    border: 1px solid;
+    border-bottom-width: 0.2625rem;
+    border-color: rgba(0,0,0,.8);
+    display: block;
+    font-size: 14px;
+    width: 100%;
+    height: 47.5px;
+    margin-top: 6px;
+    margin-bottom: 4px;
+    outline: none;
+    font-family: 'Lato';
+}
+
+.maple-pager-first-old{
+  display: none;
+}
+
+.maple-pager-first, .maple-pager-second, .maple-pager-third{
+    position: relative;
+    width: 80%;
+}
+
+.maple-pager-second, .maple-pager-third{
+    display: none;
+}
+
+.button-holder{
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+}
+
+.words{
+    font-weight: bold;
+}
+
+.maple-header{
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    /*padding: 10px 10px 10px 16px;*/
+    padding: 12px;
+    font-size: 14px;
+    align-items: center;
+}
+
+.header i{
+    padding: 4px 6px 3px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    font-size: 16px;
+    -webkit-transition: all .4s ease-out;
+    transition: all .4s ease-out;
+}
+
+.header i:hover{
+    background-color: #AE8154
+}
+
+.walkthrough{
+    height: 81vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+.container{
+    height: 81vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.maple-empty img{
+    width: 120px;
+}
+
+.maple-empty{
+  width: 300px;
+  position: absolute;
+  top:140px;
+  display: none;
+  left:50%;
+  margin-left: -150px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.maple-empty__words{
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.offline{
+    display: none;
+    background-color: red;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    position: fixed;
+    z-index: 2;
+    width: 100%;
+    top:0px;
+    text-align: center
+}
+
+.status{
+    display: none;
+    background-color: #228AE6;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    text-align: center
+}
+
+.maple-transactions{
+  position: relative;
+  display: none;
+}
+
+.maple-setup{
+  display: none;
+}
