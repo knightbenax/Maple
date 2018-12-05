@@ -121,17 +121,32 @@ body{
 
 .words{
     font-weight: bold;
+    display: flex;
+    align-items: center;
 }
 
 .maple-header{
-    color: #000;
+    color: #fff;
     display: flex;
+    z-index: 2;
+    position: fixed;
+    top: 0px;
+    top: 0px;
+    width: 100%;
     justify-content: space-between;
+    background: #35234B;
+    border-bottom: 2px solid #ECECEC;
     /*padding: 10px 10px 10px 16px;*/
-    padding: 12px;
+    padding: 14px 16px;
     font-size: 14px;
     align-items: center;
 }
+
+.maple-header i{
+  font-size: 14px;
+  margin-left: 10px;
+}
+
 
 .header i{
     padding: 4px 6px 3px;
@@ -147,7 +162,7 @@ body{
     background-color: #AE8154
 }
 
-.walkthrough{
+.maple-walkthrough{
     height: 81vh;
     display: flex;
     justify-content: center;
@@ -214,6 +229,89 @@ body{
   display: none;
 }
 
-.maple-setup{
+.maple-setup, .maple-settings{
   display: none;
+}
+
+.maple-about{
+  position: relative;
+  padding:25px;
+  overflow: hidden;
+}
+
+.maple-about::before{
+  content: '';
+  position: absolute;
+  left: -20px;
+right: -20px;
+bottom: -20px;
+top: 45%;
+transform: rotate(5deg);
+  z-index: 1;
+  background-color: #ECECEC;
+}
+
+.maple-about-inner{
+  border-radius: 3px;
+  background-color: #35234B;
+  padding: 16px 28px;
+  color: #fff;
+  display: flex;
+  font-size: 11px;
+  z-index: 2;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.maple-about-inner i.fa-heart{
+color: #DD0000;
+}
+
+.maple-about-inner span{
+  display: block;
+  margin-bottom: 4px;
+}
+
+.maple-about-inner span:last-of-type{
+  margin-bottom: 0px;
+}
+
+.maple-copy{
+  line-height: 0px;
+  font-size: 13px;
+  font-family: sans-serif;
+  display: inline !important;
+}
+
+.maple-settings-holder{
+  display: flex;
+  flex-direction: column;
+  margin-top: 47px;
+  min-height: calc(100vh - 47px);
+}
+
+.maple-settings-content{
+  flex-grow: 1;
+}
+
+.maple-settings-content{
+  padding: 24px 20px;
+}
+
+.maple-license-section{
+  margin-top: 30px;
+  }
+
+.maple-startup{
+  margin-top: 30px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.maple-header i.fa-angle-left{
+  margin-left: 0px;
+  font-size: 16px;
 }

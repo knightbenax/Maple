@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
     <!--<link rel="stylesheet" type="text/css" href="assets/css/select.css">-->
     <link rel="stylesheet" type="text/css" href="../assets/css/new_select.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/toggle.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/loader.css">
     <link rel="stylesheet" type="text/css" href="../assets/fonts/Product Sans/stylesheet.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/all.min.css">
@@ -18,16 +20,39 @@
     <div class="maple-setup"></div>
     <div class="maple-transactions">
       <div class="maple-control-bar">
-        <a href="#"></a>
-        <a href="#" class="button"><i class="fas fa-cog"></i>&nbsp;&nbsp;Settings</a>
+        <!--<a href="#"></a>
+        <a href="#" class="button"><i class="fas fa-cog"></i>&nbsp;&nbsp;Settings</a>-->
+        <div class="words">Transactions</div>
+        <div class="maple-controls">
+          <!--<i class="fas fa-search"></i>-->
+          <i id="maple-settings-btn" class="fas fa-cog"></i>
+          <i id="maple-shut-down" class="fas fa-power-off"></i>
+        </div>
+      </div>
+      <div class="maple-loader">
+        <section class="ctnr">
+        <div class="ldr">
+          <div class="ldr-blk"></div>
+          <div class="ldr-blk an_delay"></div>
+          <div class="ldr-blk an_delay"></div>
+          <div class="ldr-blk"></div>
+        </div>
+      </section>
       </div>
       <div class="maple-transaction-holder">
+        <div class="maple-revenue">
+        </div>
+        <div class="maple-graph">
+          <canvas id="myChart" height="150" class="maple-graph-canvas"></canvas>
+        </div>
         <div class="maple-empty">
             <img src="../assets/images/smile.png" />
             <span class="maple-empty__words">
                 No payments have come in yet. Keep calm.
             </span>
         </div>
+      </div>
+      <div class="maple-single-transaction-holder">
       </div>
     </div>
     <div class="maple-settings"></div>
@@ -38,11 +63,15 @@
     <script>
     //This is for includes
     $(".maple-setup").load('setup.html');
+    $(".maple-settings").load('settings.html');
     </script>
     <script src="../assets/js/accounting.min.js"></script>
+    <script src="../assets/js/chart.bundle.min.js"></script>
+    <script src="../assets/js/chartmanager.js"></script>
     <script src="../assets/js/moment-with-locales.js"></script>
     <script src="../assets/js/app_state.js"></script>
     <script src="../assets/js/optimus.js"></script>
+    <script src="../assets/js/listener.js"></script>
 
 
     <!-- Insert this line after script imports -->

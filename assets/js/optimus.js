@@ -2,10 +2,12 @@ var el = {};
 var processor = "";
 var sk_key = ""; //sk_test_94d298828acb46be314425078b1e82d54b63adca
 var api_root = "https://api.paystack.co/";
+var gravatar_root = "https://www.gravatar.com/";
 var transaction_objects = [];
 var last_transaction_date = "";
+const date_difference = 5;
 
-const SECTION_MARGIN_TOP = 46;
+const SECTION_MARGIN_TOP = 47;
 
 $('body').on('click', '#open_dashboard', (event) => {
   event.preventDefault();
@@ -15,13 +17,18 @@ $('body').on('click', '#open_dashboard', (event) => {
 
 const ipcRenderer = require('electron').ipcRenderer;
 const storage = require('electron-json-storage');
+const md5 = require('md5');
 
 ipcRenderer.on('app-online', (event, arg)=> {
   //secondWindow.show()
   //console.log('App is online!');
   $(".offline").css("display", "none");
   $(".maple-control-bar").css("top", "0px");
+  $(".maple-header").css("top", "0px");
   $(".maple-transaction-holder").css("margin-top", SECTION_MARGIN_TOP + "px");
+  $(".maple-single-transaction-holder").css("margin-top", SECTION_MARGIN_TOP + "px");
+  $(".maple-settings-holder").css("margin-top", SECTION_MARGIN_TOP + "px");
+  $(".maple-walkthrough").css("margin-top", SECTION_MARGIN_TOP + "px");
 })
 
 
@@ -32,8 +39,11 @@ ipcRenderer.on('app-offline', (event, arg)=> {
   const new_height = $(".offline").outerHeight(true);
   const new_margin_top = new_height + SECTION_MARGIN_TOP;
   $(".maple-control-bar").css("top", new_height + "px");
+  $(".maple-header").css("top", new_height + "px");
   $(".maple-transaction-holder").css("margin-top", new_margin_top + "px");
-
+  $(".maple-single-transaction-holder").css("margin-top", new_margin_top + "px");
+  $(".maple-settings-holder").css("margin-top", new_margin_top + "px");
+  $(".maple-walkthrough").css("margin-top", new_margin_top + "px");
 })
 
 ipcRenderer.on('win-show', (event, arg)=> {
@@ -60,18 +70,22 @@ storage.get('setup', function(error, data) {
     //$(".header").css("display", "none");
     $(".maple-transactions").css("display", "none");
     $(".maple-setup").css("display", "block");
+    $(".maple-settings").css("display", "none");
     app_state = SETUP;
 
   } else {
-
+    sk_key = data.secret_key;
     $(".maple-transactions").css("display", "block");
     $(".maple-setup").css("display", "none");
+    $(".maple-settings").css("display", "none");
+    $(".maple-settings #paystack-key").val(sk_key);
     app_state = TRANSACTIONS;
 
     //console.table(data);
     //console.log('http://ephod.io/maple/' + data.public_key);
-    sk_key = data.secret_key;
+
     fetchData();
+    setChartData(api_root, sk_key);
   }
 
 });
@@ -101,7 +115,7 @@ async function listenForData(){
      }
   });
 
-  console.log("Listen for new data");
+  //console.log("Listen for new data");
 
   let now = new Date().toJSON();
  //console.log(now);
@@ -157,7 +171,7 @@ async function listenForData(){
       <span class='maple-new-event-text'>New transactions</span>\
       <span class='maple-red-line'></span></div>";
 
-      $(".maple-transaction-holder").prepend(new_notifier);
+      $(".maple-graph").after(new_notifier);
       parseDataToView(result, true, true);
       $(".maple-empty").css("display", "none");
     }
@@ -166,9 +180,171 @@ async function listenForData(){
   }
 
 
-
   await wait(30000);
   listenForData();
+}
+
+async function getSingleTransactionData(dataId){
+  $.ajaxSetup({
+     headers:{
+        'Authorization': "Bearer " + sk_key
+     }
+  });
+
+  try{
+    let result = await fetchSingleTransaction(dataId);
+
+    //let single_transaction = result.data.splice(-1, 1);
+    if(!jQuery.isEmptyObject(result.data)){
+      console.log(result);
+      let element = result.data;
+
+      var currency = "";
+      var transaction_date;
+      switch(element.currency){
+        case "NGN":
+          currency = "₦";
+          break;
+        case "USD":
+          currency = "$";
+          break;
+        case "GBP":
+          currency = "£";
+          break;
+        case "EUR":
+          currency = "€";
+          break;
+      }
+
+      var status = element.status;
+      switch(element.status){
+        case "success":
+          status_css = "success";
+          transaction_date = moment(element.paid_at);
+          break;
+        case "reversed":
+          status_css = "reversed";
+          transaction_date = moment(element.created_at);
+          break;
+        default:
+          status_css = "failure";
+          transaction_date = moment(element.created_at);
+          break;
+      }
+
+      const date = moment(transaction_date).fromNow();
+      const d_today = new Date();
+      const todayMoment = moment(d_today);
+      const days = todayMoment.diff(transaction_date, 'days');
+      var final_date = "";
+      if (days > date_difference){
+        final_date = moment(transaction_date).format('ddd Do MMM YYYY, h:mm a');
+      } else {
+        final_date = date;
+      }
+
+      var device = "";
+      switch (element.log.mobile) {
+        case true:
+          device = "<i class='fa fa-fw fa-mobile-alt'></i>";
+          break;
+        case false:
+          device = "<i class='fa fa-fw fa-desktop'></i>";
+          break;
+        default:
+          device = "<i class='fa fa-fw fa-mobile-alt'></i>";
+      }
+
+      var customer_name = "";
+      var customer_profile_image = "";
+      if (element.customer.first_name == "" && element.customer.last_name == ""){
+        //Let's get the name from Gravatar instead
+        var email_hash = md5(element.customer.email);
+        var email_result = await fetchGravatar(email_hash);
+        console.log(email_result);
+        customer_name = email_result.entry[0].name.formatted;
+        customer_profile_image = "<div class='maple-single-transaction-customer-img' style='background-image:url(" + email_result.entry[0].thumbnailUrl + ")'></div>";
+      } else {
+        customer_name = element.customer.first_name + " " + element.customer.last_name;
+      }
+
+      //console.log(md5(element.customer.email));
+
+      var amount = accounting.formatMoney(element.amount / 100, {symbol: currency, format: "%s%v"});
+      let transaction = "<div class='maple-single-transaction'>\
+      <div class='maple-single-transaction-section'>\
+      <div class='maple-single-transaction-section-amount'><span>" + amount + "</span><span>" + device + "</span></div>\
+      <div class='maple-single-transaction-section-content'>" + final_date + "</div>\
+      <div class='maple-single-transaction-section-content'><span class='maple-tag " + status_css + "'>" + status + "</span></div>\
+      </div>\
+      <div class='maple-single-transaction-section maple-single-transaction-section--flex'>\
+      " + customer_profile_image + "\
+      <div>\
+      <div class='maple-single-transaction-section-content'>" + customer_name + "</div>\
+      <div class='maple-single-transaction-section-content'>" + element.customer.email +  "</div>\
+      </div>\
+      </div>\
+      </div>";
+
+      var timeline = "<div class='maple-single-transaction-timeline'>\
+      <span class='maple-single-transaction-timeline-header'>Transaction Timeline</span>";
+      //</div>";
+
+      if (!jQuery.isEmptyObject(element.log.history)){
+        //var all_timelines_holder = "";
+        var time_difference = 0;
+        element.log.history.forEach(function(history){
+          var timeline_date = element.log.start_time;// + time_difference;
+          var time_date = moment.unix(timeline_date).add(time_difference, 'seconds').format('hh:mm:ss a');
+          time_difference = history.time;
+
+
+          var timeline_type = "";
+          var salutation = "Customer";
+
+          if (customer_name != ""){
+            var split_name = customer_name.split(" ");
+            if (split_name[0]){
+              salutation = split_name[0];
+            }
+          }
+
+          switch (history.type) {
+            case "open":
+              timeline_type = salutation + " " +  history.message.toLowerCase();
+              break;
+            case "action":
+              timeline_type = salutation + " " + history.message.toLowerCase();
+              break;
+            case "error":
+              timeline_type = salutation + " got " + history.message.toLowerCase();
+              break;
+            default:
+              timeline_type = salutation + " " + history.message.toLowerCase();
+              break;
+          }
+
+          var single_timeline = "<div class='maple-single-timeline'>\
+          <div class='maple-single-timeline-edge'>\
+          <span></span>\
+          </div>\
+          <div class='maple-single-timeline-content'>" + timeline_type +  "<br/>" + time_date  + "</div>\
+          </div>";
+
+          timeline = timeline + single_timeline;
+        });
+
+        timeline = timeline + "</div>";
+
+        transaction = transaction + timeline;
+      }
+
+      $(".maple-loader").css("display", "none");
+      $(".maple-single-transaction-holder").append(transaction);
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function fetchNewTranasactions(current_time_date, last_transaction_date){
@@ -177,8 +353,16 @@ function fetchNewTranasactions(current_time_date, last_transaction_date){
   return $.get(api_root + "transaction?from=" + last_transaction_date + "&to=" + current_time_date, function (data) {});
 }
 
+function fetchSingleTransaction(transaction_id){
+  return $.get(api_root + "transaction/" + transaction_id, function (data) {});
+}
+
+function fetchGravatar(email_hash){
+  return $.get(gravatar_root + email_hash + ".json", function (data) {});
+}
+
 function parseDataToView(data, new_or_old_event, prepend){
-  console.log(last_transaction_date);
+  //console.log(last_transaction_date);
   transaction_objects = data.data;
   transaction_objects.forEach(function(element){
     var currency = "";
@@ -198,6 +382,7 @@ function parseDataToView(data, new_or_old_event, prepend){
         break;
     }
     var status_css = "";
+    var transaction_id = element.id;
     var status = element.status;
     switch(element.status){
       case "success":
@@ -218,13 +403,13 @@ function parseDataToView(data, new_or_old_event, prepend){
     const todayMoment = moment(d_today);
     const days = todayMoment.diff(transaction_date, 'days');
     var final_date = "";
-    if (days > 7){
+    if (days > date_difference){
       final_date = moment(transaction_date).format('ddd Do MMM YYYY, h:mm a');
     } else {
       final_date = date;
     }
 
-    var amount = accounting.formatNumber(element.amount / 100);
+    var amount = accounting.formatMoney(element.amount / 100, {symbol: currency, format: "%s%v"});
     var cus_email = element.customer.email;
     var status = element.status;
     var domain = element.domain;
@@ -238,10 +423,9 @@ function parseDataToView(data, new_or_old_event, prepend){
     }
 
     //console.log(new_or_old_event);
-
-    var transaction = "<div class='maple-transaction " + transaction_bg + "'>\
+    var transaction = "<div class='maple-transaction " + transaction_bg + "' data-id='" + transaction_id +  "'>\
     <div class='maple-transaction-first'>\
-    <span class='maple-currency'>" + currency + amount + "</span><span class='maple-customer'>" + cus_email + "</span><span class='maple-tag " + status_css + "'>" + status + "</span>\
+    <span class='maple-currency'>" + amount + "</span><span class='maple-customer'>" + cus_email + "</span><span class='maple-tag " + status_css + "'>" + status + "</span>\
     </div>\
     <div class='maple-transaction-second'>\
     <span class='maple-date'>" + final_date +  "</span>\
@@ -249,7 +433,8 @@ function parseDataToView(data, new_or_old_event, prepend){
     </div>\
     </div>";
     if (prepend){
-      $(".maple-transaction-holder").prepend(transaction);
+      //$(".maple-transaction-holder").prepend(transaction);
+      $(".maple-graph").after(transaction);
     } else {
       $(".maple-transaction-holder").append(transaction);
     }
@@ -264,20 +449,24 @@ function fetchData(){
      }
   });
 
-  console.log("Fetch Data");
+  //console.log("Fetch Data");
   $.get(api_root + "transaction", function (data) {
       //alert(data);
 
       //console.table(data);
+      //hide loader
+      $(".maple-loader").css("display", "none");
+
       if(!jQuery.isEmptyObject(data.data)){
         //console.log();
         last_transaction_date = data.data[0].created_at;
         parseDataToView(data, false, false);
-        //$(".maple-empty").css("display", "none");
+
         listenForData();
       } else {
           $(".maple-empty").css("display", "flex");
       }
+
 
   }, 'json');
 }
@@ -334,7 +523,7 @@ function cycleScreens(){
     } else {
 
       sk_key = $("#key").val();
-      storage.set('setup', { secret_key: sk_key}, function(error){
+      storage.set('setup', { secret_key: sk_key, start: true, license: ""}, function(error){
         if (error) throw error;
 
         $(".maple-setup").css("display", "none");
@@ -360,4 +549,21 @@ function backScreens(){
     $(".first").css("display", "block");
     $("#back_btn").css('display', 'none');
   }
+}
+
+function showSettings(){
+  //console.log("Settings");
+  $(".maple-transactions").css("display", "none");
+  $(".maple-setup").css("display", "none");
+  $(".maple-settings").css("display", "block");
+}
+
+function showSingleTransaction(dataId){
+  //console.log("Settings");
+  $(".maple-transaction-holder").css("display", "none");
+  $(".maple-single-transaction-holder").css("display", "block");
+  $(".maple-loader").css("display", "block");
+
+  $(".maple-transactions .maple-control-bar .words").html("<i id='maple-back' class='fas fa-angle-left'></i>&nbsp;&nbsp;&nbsp;Single Transaction");
+  getSingleTransactionData(dataId);
 }

@@ -38,7 +38,8 @@ function createWindow() {
        show: false,
        transparent: true,
        frame: false,
-       title: 'Maple'
+       title: 'Maple',
+			 icon: __dirname +  '/assets/images/logo.icns'
     })
 
     win.loadURL(url.format({pathname: path.join(__dirname, 'views/dashboard.html'),
@@ -72,7 +73,9 @@ function createWindow() {
     win = null
   })
 
-
+	ipcMain.on('close-me', (evt, arg) => {
+	  app.quit()
+	})
 
   const iconName = 'assets/images/mapleTemplate.png';
   const iconPath = path.join(__dirname, iconName);

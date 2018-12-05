@@ -51,9 +51,7 @@ a.button i{
   display: inline !important;
 }
 
-.maple-transaction{
-  display: flex;
-}
+
 
 .maple-transaction-first{
   display: flex;
@@ -164,13 +162,19 @@ a.button i{
 }
 
 
-
 .maple-transaction{
   padding: 12px;
   border: 1px solid #ECECEC;
   border-radius: 3px;
   margin-bottom: 10px;
+  display: flex;
+  transition: all 0.3s linear;
 }
+
+.maple-transaction:hover{
+  border: 1px solid #a2a2a2;
+}
+
 
 .maple-new-event{
   margin: 0px -12px;
@@ -199,6 +203,15 @@ a.button i{
   margin-bottom: 0px;
 }
 
+
+.maple-single-transaction-holder{
+  display: none;
+  margin-top: 46px;
+  min-height: calc(100vh - 47px);
+  background-color: #e8e8e8;
+  z-index: 1;
+}
+
 .maple-transaction-holder{
   padding: 12px;
   margin-top: 46px;
@@ -207,13 +220,113 @@ a.button i{
 
 .maple-control-bar{
       display: flex;
-      background: #ffffff;
+      background: #35234B;
+      color: #fff;
       z-index: 2;
       position: fixed;
       top: 0px;
       width: 100%;
       justify-content: space-between;
-      padding: 12px;
+      padding: 14px 16px;
       font-size: 14px;
       align-items: center;
+      border-bottom: 2px solid #ECECEC;
+}
+
+
+.maple-controls i{
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.maple-controls i.fa-power-off{
+  border-left: 1px solid #bfbfbf;
+  padding-left: 10px;
+}
+
+.maple-graph{
+  height: 150px;
+  margin-left: -32px;
+  margin-right: -32px;
+  margin-bottom: 20px;
+}
+
+.maple-graph-canvas{
+  width: 100%;
+  height: 100%;
+}
+
+.maple-revenue-figure{
+  font-size: 18px;
+  display: block;
+  font-weight: bold;
+}
+
+#maple-back{
+  font-size: 20px;
+}
+
+.maple-revenue-figure-text{
+  font-size: 12px;
+  color: #818181;
+}
+
+.maple-single-transaction-timeline{
+padding: 20px
+}
+
+.maple-single-transaction-timeline-header{
+  text-transform: capitalize;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.maple-single-timeline{
+  margin-bottom: 10px;
+}
+
+.maple-single-timeline-edge{
+
+}
+
+
+.maple-single-transaction-section{
+  background-color: #fff;
+  padding: 20px 18px;
+}
+
+.maple-single-transaction-section--flex{
+  display: flex;
+  align-items: center;
+}
+
+.maple-single-transaction-section-header{
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.maple-single-transaction-section-content{
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.maple-single-transaction-section-content:last-child{
+  margin-bottom: 0px;
+}
+
+.maple-single-transaction-section-amount{
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 24px;
+}
+
+.maple-single-transaction-customer-img{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-size: cover;
 }

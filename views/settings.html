@@ -1,34 +1,44 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self'; style-src 'self' 'unsafe-inline';">
-    <link rel="stylesheet" type="text/css" href="../assets/css/index.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/dashboard.css">
-    <!--<link rel="stylesheet" type="text/css" href="assets/css/select.css">-->
-    <link rel="stylesheet" type="text/css" href="../assets/fonts/Product Sans/stylesheet.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/fontawesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/all.min.css">
-    <title>Maple</title>
-  </head>
-  <body>
-    <div class="offline">Offline <i class="fa fa-frown"></i></div>
-    <div class="status">Offline <i class="fa fa-frown"></i></div>
-    <div class="maple-control-bar">
-      <a href="#"></a>
-      <a href="#" class="button"><i class="fas fa-cog"></i>&nbsp;&nbsp;Settings</a>
+<div class="maple-header">
+    <div class="words"><i id="maple-back" class="fas fa-angle-left"></i>&nbsp;&nbsp;&nbsp;Settings</div>
+    <div class="maple-controls">
+      <i id="maple-shut-down" class="fas fa-power-off"></i>
     </div>
-    <div class="maple-transaction-holder">
+</div>
+<div class="maple-settings-holder">
+
+    <div class="maple-settings-content">
+
+      <div class="maple-api-section">
+        <span class="label">Your <strong>Paystack</strong> secret API key</span>
+        <input type="text" class="text" id="paystack-key" placeholder="sk_xxxx_xxxxxxxxxxxxxxxxxxxxxxxx"/>
+      </div>
+
+      <div class="maple-license-section">
+        <span class="label">Your <strong>Maple</strong> license</span>
+        <input type="text" class="text" id="maple-license" placeholder="sk_xxxx_xxxxxxxxxxxxxxxxxxxxxxxx"/>
+      </div>
+
+      <div class="maple-startup">
+        <span class="label">Launch Maple on system startup</span>
+        <div class="maple-toggle">
+          <input type="checkbox" id="cbx" style="display:none" checked/>
+           <label for="cbx" class="toggle">
+             <span>
+               <svg width="10px" height="10px" viewBox="0 0 10 10">
+                 <path d="M5,1 L5,1 C2.790861,1 1,2.790861 1,5 L1,5 C1,7.209139 2.790861,9 5,9 L5,9 C7.209139,9 9,7.209139 9,5 L9,5 C9,2.790861 7.209139,1 5,1 L5,9 L5,1 Z"></path>
+               </svg>
+             </span>
+           </label>
+        </div>
+      </div>
+
     </div>
-    <!-- Insert this line above script imports  -->
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/accounting.min.js"></script>
-    <script src="../assets/js/moment-with-locales.js"></script>
-    <script src="../assets/js/index.js"></script>
-
-    <!-- Insert this line after script imports -->
-    <script>if (window.module) module = window.module;</script>
-  </body>
-</html>
+    <div class="maple-about">
+      <div class="maple-about-inner">
+        <span>Made with <i class="fas fa-heart"></i> in Lagos, Nigeria</span>
+        <span>Copyright <span class="maple-copy">&copy;</span> Maple 2018.</span>
+        <span>Feedback/Support: knightbenax@gmail.com</span>
+      </div>
+    </div>
+</div>
