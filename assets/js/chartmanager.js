@@ -181,7 +181,7 @@ function drawChart(){
           tooltips: {
             enabled: true,
             mode: 'single',
-            bodyFontFamily: 'Lato',
+            bodyFontFamily: 'Cera Pro',
             callbacks: {
               title: function(tooltipItems, data) {
                 var tooltipItem = tooltipItems[0];
@@ -205,7 +205,7 @@ function drawChart(){
                   // This more specific font property overrides the global property
                   fontColor: 'black',
                   defaultFontSize: 8,
-                  defaultFontFamily: 'Lato'
+                  defaultFontFamily: 'Cera Pro'
               }
           },
           responsive: false,
@@ -227,7 +227,7 @@ function drawChart(){
                  ticks: {
                     display: true,
                     fontColor: '#000',
-                    fontFamily: 'Lato',
+                    fontFamily: 'Cera Pro',
                     fontSize: 10,
                     autoSkip: false,
                     maxRotation: 0,

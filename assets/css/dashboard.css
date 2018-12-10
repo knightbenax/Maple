@@ -29,7 +29,7 @@ body{
     margin: 0px;
     padding: 0px;
     font-size: 14px;
-    font-family: 'Product Sans', sans-serif;
+    font-family: 'Cera Pro', sans-serif;
     /*background-color: rgb(235, 235, 235);*/
     background-color: #ffffff;
 }
@@ -290,7 +290,6 @@ padding: 20px
 
 }
 
-
 .maple-single-transaction-section{
   background-color: #fff;
   padding: 20px 18px;
@@ -299,6 +298,10 @@ padding: 20px
 .maple-single-transaction-section--flex{
   display: flex;
   align-items: center;
+}
+
+.maple-single-transaction-section--flex .maple-single-transaction-section-content{
+  margin-bottom: 2px !important;
 }
 
 .maple-single-transaction-section-header{
@@ -311,8 +314,8 @@ padding: 20px
   font-size: 14px;
 }
 
-.maple-single-transaction-section-content:last-child{
-  margin-bottom: 0px;
+.maple-single-transaction-section-content:last-of-type{
+  margin-bottom: 0px !important;
 }
 
 .maple-single-transaction-section-amount{
