@@ -1,4 +1,4 @@
-@font-face {
+/*@font-face {
     font-family: 'Lato';
     src: url('../fonts/Lato/Lato-Bold-webfont.eot');
     src: url('../fonts/Lato/Lato-Bold-webfont.eot?#iefix') format('embedded-opentype'),
@@ -23,13 +23,13 @@
     font-weight: normal;
     font-style: normal;
 
-}
+}*/
 
 
 body{
     margin: 0px;
     padding: 0px;
-    font-family: Lato;
+    /*font-family: Lato;*/
     /*background-color: rgb(235, 235, 235);*/
     background-color: #ffffff;
 }
@@ -123,6 +123,39 @@ body{
     font-weight: bold;
     display: flex;
     align-items: center;
+}
+
+
+#maple-back{
+  font-size: 25px;
+}
+
+
+.maple-control-bar{
+      display: flex;
+      background: #35234B;
+      color: #fff;
+      z-index: 2;
+      position: fixed;
+      top: 0px;
+      width: 100%;
+      justify-content: space-between;
+      height: 47px;
+      padding: 0px 16px;
+      font-size: 14px;
+      align-items: center;
+      border-bottom: 2px solid #ECECEC;
+}
+
+
+.maple-controls i{
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.maple-controls i.fa-power-off{
+  border-left: 1px solid #bfbfbf;
+  padding-left: 10px;
 }
 
 .maple-header{

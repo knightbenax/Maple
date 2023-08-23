@@ -261,7 +261,7 @@ async function getSingleTransactionData(dataId){
         //Let's get the name from Gravatar instead
         var email_hash = md5(element.customer.email);
         var email_result = await fetchGravatar(email_hash);
-        console.log(email_result);
+        //console.log(email_result);
         customer_name = email_result.entry[0].name.formatted;
         customer_profile_image = "<div class='maple-single-transaction-customer-img' style='background-image:url(" + email_result.entry[0].thumbnailUrl + ")'></div>";
       } else {
@@ -556,14 +556,36 @@ function showSettings(){
   $(".maple-transactions").css("display", "none");
   $(".maple-setup").css("display", "none");
   $(".maple-settings").css("display", "block");
+  app_state = SETTINGS;
+}
+
+function hideSettings(){
+  //console.log("Settings");
+  $(".maple-transactions").css("display", "block");
+  $(".maple-setup").css("display", "none");
+  $(".maple-settings").css("display", "none");
+  app_state = TRANSACTIONS;
+}
+
+function hideLoader(){
+  $(".maple-loader").css("display", "none");
+}
+
+function hideSingleTransaction(){
+  //console.log("Settings");
+  $(".maple-transaction-holder").css("display", "block");
+  $(".maple-single-transaction-holder").css("display", "none");
+  $(".maple-transactions .maple-control-bar .words").html("Transactions");
+  $(".maple-single-transaction-holder").html("");
+  app_state = TRANSACTIONS;
 }
 
 function showSingleTransaction(dataId){
   //console.log("Settings");
+  app_state = SINGLE_TRANSACTION;
   $(".maple-transaction-holder").css("display", "none");
   $(".maple-single-transaction-holder").css("display", "block");
   $(".maple-loader").css("display", "block");
-
   $(".maple-transactions .maple-control-bar .words").html("<i id='maple-back' class='fas fa-angle-left'></i>&nbsp;&nbsp;&nbsp;Single Transaction");
   getSingleTransactionData(dataId);
 }

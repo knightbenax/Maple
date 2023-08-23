@@ -57,7 +57,8 @@ async function setChartData(route, sk_key){
     } else {
       var current_time_date = new Date();
       for(var i = 0; i <= 8; i++){
-        var amount = Math.floor((Math.random() * 6));
+        //var amount = Math.floor((Math.random() * 6));
+        var amount = 0;//Math.floor((Math.random() * 6));
         net_revenue = net_revenue + amount;
         var this_date = current_time_date.getDate() - (7 - i);
         var element_date = new Date();

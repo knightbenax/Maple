@@ -77,6 +77,10 @@ function createWindow() {
 	  app.quit()
 	})
 
+	ipcMain.on('set-auto-launch', (evt, arg)=> {
+		
+	})
+
   const iconName = 'assets/images/mapleTemplate.png';
   const iconPath = path.join(__dirname, iconName);
 
