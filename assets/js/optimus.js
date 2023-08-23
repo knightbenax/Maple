@@ -243,16 +243,18 @@ async function getSingleTransactionData(dataId){
         final_date = date;
       }
 
-      var device = "";
-      switch (element.log.mobile) {
-        case true:
-          device = "<i class='fa fa-fw fa-mobile-alt'></i>";
-          break;
-        case false:
-          device = "<i class='fa fa-fw fa-desktop'></i>";
-          break;
-        default:
-          device = "<i class='fa fa-fw fa-mobile-alt'></i>";
+      var device = "<i class='fa fa-fw fa-desktop'></i>";
+      if (element.log !== null){
+        switch (element.log.mobile) {
+          case true:
+            device = "<i class='fa fa-fw fa-mobile-alt'></i>";
+            break;
+          case false:
+            device = "<i class='fa fa-fw fa-desktop'></i>";
+            break;
+          default:
+            device = "<i class='fa fa-fw fa-mobile-alt'></i>";
+        }
       }
 
       var customer_name = "";
@@ -261,8 +263,12 @@ async function getSingleTransactionData(dataId){
         //Let's get the name from Gravatar instead
         var email_hash = md5(element.customer.email);
         var email_result = await fetchGravatar(email_hash);
-        //console.log(email_result);
-        customer_name = email_result.entry[0].name.formatted;
+        console.log(email_result);
+        if(typeof email_result.entry[0].name !== 'undefined'){
+          customer_name = email_result.entry[0].name.formatted;
+        } else {
+          customer_name = email_result.entry[0].displayName;
+        }
         customer_profile_image = "<div class='maple-single-transaction-customer-img' style='background-image:url(" + email_result.entry[0].thumbnailUrl + ")'></div>";
       } else {
         customer_name = element.customer.first_name + " " + element.customer.last_name;
@@ -290,53 +296,55 @@ async function getSingleTransactionData(dataId){
       <span class='maple-single-transaction-timeline-header'>Transaction Timeline</span>";
       //</div>";
 
-      if (!jQuery.isEmptyObject(element.log.history)){
-        //var all_timelines_holder = "";
-        var time_difference = 0;
-        element.log.history.forEach(function(history){
-          var timeline_date = element.log.start_time;// + time_difference;
-          var time_date = moment.unix(timeline_date).add(time_difference, 'seconds').format('hh:mm:ss a');
-          time_difference = history.time;
-
-
-          var timeline_type = "";
-          var salutation = "Customer";
-
-          if (customer_name != ""){
-            var split_name = customer_name.split(" ");
-            if (split_name[0]){
-              salutation = split_name[0];
+      if (element.log !== null){
+        if (!jQuery.isEmptyObject(element.log.history)){
+          //var all_timelines_holder = "";
+          var time_difference = 0;
+          element.log.history.forEach(function(history){
+            var timeline_date = element.log.start_time;// + time_difference;
+            var time_date = moment.unix(timeline_date).add(time_difference, 'seconds').format('hh:mm:ss a');
+            time_difference = history.time;
+  
+  
+            var timeline_type = "";
+            var salutation = "Customer";
+  
+            if (customer_name != ""){
+              var split_name = customer_name.split(" ");
+              if (split_name[0]){
+                salutation = split_name[0];
+              }
             }
-          }
-
-          switch (history.type) {
-            case "open":
-              timeline_type = salutation + " " +  history.message.toLowerCase();
-              break;
-            case "action":
-              timeline_type = salutation + " " + history.message.toLowerCase();
-              break;
-            case "error":
-              timeline_type = salutation + " got " + history.message.toLowerCase();
-              break;
-            default:
-              timeline_type = salutation + " " + history.message.toLowerCase();
-              break;
-          }
-
-          var single_timeline = "<div class='maple-single-timeline'>\
-          <div class='maple-single-timeline-edge'>\
-          <span></span>\
-          </div>\
-          <div class='maple-single-timeline-content'>" + timeline_type +  "<br/>" + time_date  + "</div>\
-          </div>";
-
-          timeline = timeline + single_timeline;
-        });
-
-        timeline = timeline + "</div>";
-
-        transaction = transaction + timeline;
+  
+            switch (history.type) {
+              case "open":
+                timeline_type = salutation + " " +  history.message.toLowerCase();
+                break;
+              case "action":
+                timeline_type = salutation + " " + history.message.toLowerCase();
+                break;
+              case "error":
+                timeline_type = salutation + " got " + history.message.toLowerCase();
+                break;
+              default:
+                timeline_type = salutation + " " + history.message.toLowerCase();
+                break;
+            }
+  
+            var single_timeline = "<div class='maple-single-timeline'>\
+            <div class='maple-single-timeline-edge'>\
+            <span></span>\
+            </div>\
+            <div class='maple-single-timeline-content'>" + timeline_type +  "<br/>" + time_date  + "</div>\
+            </div>";
+  
+            timeline = timeline + single_timeline;
+          });
+  
+          timeline = timeline + "</div>";
+  
+          transaction = transaction + timeline;
+        }
       }
 
       $(".maple-loader").css("display", "none");
@@ -358,7 +366,9 @@ function fetchSingleTransaction(transaction_id){
 }
 
 function fetchGravatar(email_hash){
-  return $.get(gravatar_root + email_hash + ".json", function (data) {});
+  let url = gravatar_root + email_hash + ".json";
+  console.log(url);
+  return $.get(url, function (data) {});
 }
 
 function parseDataToView(data, new_or_old_event, prepend){
