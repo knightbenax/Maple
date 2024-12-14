@@ -11,11 +11,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^3.1.13",
-    "electron-reloader": "^0.2.0"
+    "electron": "^33.3.0",
+    "electron-reloader": "^1.2.3"
   },
   "dependencies": {
-    "electron-json-storage": "^4.1.4",
+    "electron-json-storage": "^4.5.0",
     "electron-online": "^1.0.0",
     "jquery": "^3.3.1",
     "md5": "^2.2.1"

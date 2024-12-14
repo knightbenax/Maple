@@ -39,6 +39,11 @@ function createWindow() {
        transparent: true,
        frame: false,
        title: 'Maple',
+       webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: true
+      },
 			 icon: __dirname +  '/assets/images/logo.icns'
     })
 
@@ -49,12 +54,12 @@ function createWindow() {
 
 
     win.on('show', () => {
-        trayIcon.setHighlightMode('always')
+        //trayIcon.setHighlightMode('always');
         win.webContents.send('win-show' , {msg:'Window is shown'});
     })
 
     win.on('hide', () => {
-        trayIcon.setHighlightMode('never')
+        //trayIcon.setHighlightMode('never')
         win.webContents.send('win-hide' , {msg:'Window is hidden'});
     })
 
@@ -86,7 +91,7 @@ function createWindow() {
 
   trayIcon = new Tray(iconPath);
   trayIcon.setToolTip('Maple');
-  trayIcon.setHighlightMode("selection")
+  //trayIcon.setHighlightMode("selection");
 
   connection.on('online', () => {
     console.log('App is online!')

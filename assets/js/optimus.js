@@ -17,6 +17,7 @@ $('body').on('click', '#open_dashboard', (event) => {
 
 const ipcRenderer = require('electron').ipcRenderer;
 const storage = require('electron-json-storage');
+const os = require('os');
 const md5 = require('md5');
 
 ipcRenderer.on('app-online', (event, arg)=> {
@@ -57,7 +58,7 @@ ipcRenderer.on('win-hidden', (event, arg)=> {
 /*storage.clear(function(error) {
   if (error) throw error;
 });*/
-
+storage.setDataPath(os.tmpdir());
 storage.get('setup', function(error, data) {
   if (error) throw error;
 
